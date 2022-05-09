@@ -1,0 +1,339 @@
+// Vars
+$text: 2rem;
+$header2: 2.5rem;
+$special-color: rgb(50, 99, 237);
+
+// Mixins
+@mixin flex($justify, $align, $dec) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $dec;
+}
+
+// imports
+@import url("https://fonts.googleapis.com/css2?family=Mulish&family=Lato&display=swap");
+
+// Global
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+  transition: all 0.5s ease;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Mulish", "Lato", sans-serif;
+  animation: opening 0.6s ease-in-out;
+}
+
+//body animation
+@keyframes opening {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+h2 {
+  font-size: $header2;
+}
+
+button {
+  font-family: "Mulish", "Lato", sans-serif;
+  cursor: pointer;
+  border: none;
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+a,
+p,
+span {
+  font-size: $text;
+}
+path,
+svg,
+i {
+  pointer-events: none;
+}
+
+// Colors
+.colors {
+  min-height: 80vh;
+  color: whitesmoke;
+  display: flex;
+}
+// keyframes
+@keyframes generate {
+  0% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+// color
+.color {
+  height: 80vh;
+  flex: 1;
+  @include flex(space-evenly, center, column);
+  position: relative;
+  overflow: hidden;
+
+  h2 {
+    cursor: pointer;
+  }
+}
+
+// controls
+.controls {
+  @include flex(center, center, column);
+}
+
+.lock,
+.adjust {
+  background: none;
+  font-size: $text;
+  margin: 2rem 0;
+}
+
+// Slider
+
+.slider {
+  position: absolute;
+  bottom: 0%;
+  @include flex(center, center, column);
+  padding: 0.5rem;
+  background: rgba(40, 40, 40, 0.9);
+  width: 80%;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  pointer-events: none;
+  opacity: 0;
+
+  // We're adding adjusment class
+  transform: translateY(100%);
+  transition: all 0.5s ease-in-out;
+
+  input {
+    width: 100%;
+    appearance: none;
+    margin: 1rem 0;
+    // background: transparent;
+    position: relative;
+    cursor: pointer;
+    border-radius: 1rem;
+  }
+
+  button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+    color: whitesmoke;
+    background: rgba(0, 0, 0, 1);
+    border-bottom-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+}
+
+.slider.active {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+// Panel
+
+.panel {
+  min-height: 20vh;
+  @include flex(space-evenly, center, row);
+
+  button {
+    font-size: $text;
+    margin: 1rem;
+    padding: 1rem 2rem;
+    color: whitesmoke;
+    background: rgb(50, 99, 237);
+    border-radius: 1rem;
+  }
+
+  p {
+    font-size: $text;
+  }
+}
+
+.save-panel,
+.generate-panel,
+.library-panel {
+  @include flex(center, center, column);
+}
+
+// popups
+.copy-container,
+.save-container,
+.library-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  @include flex(center, center, row);
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.5s ease-in-out;
+}
+
+// actives
+.copy-container.active,
+.save-container.active,
+.library-container.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.copy-popup.active,
+.save-popup.active,
+.library-popup.active {
+  transform: translateY(0rem) rotateZ(0deg);
+}
+
+.copy-popup,
+.save-popup,
+.library-popup {
+  background: white;
+  @include flex(space-evenly, center, column);
+  border-radius: 2rem;
+  color: #333;
+  padding: 1rem;
+
+  // animation thing
+  transition: transform 0.5s ease;
+  transform: translateY(-2rem) rotateZ(-5deg);
+  transform-origin: bottom;
+
+  min-width: 30%;
+  min-height: 30vh;
+  font-size: $text;
+  h4,
+  h3 {
+    padding: 1rem;
+  }
+}
+
+//popup buttons
+.close-save,
+.close-library {
+  border-radius: 50%;
+  height: 4rem;
+  width: 4rem;
+  background: rgba(247, 247, 247, 0.9);
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1), -1px -3px 5px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin: 0.5rem;
+  @include flex(center, center, row);
+  font-size: $text;
+}
+.submit-save,
+.pick-palette-btn {
+  border: none;
+  border-radius: 1rem;
+  background: $special-color;
+  padding: 1rem 3rem;
+  margin: 1rem;
+  color: whitesmoke;
+  font-size: $text;
+}
+
+// popup inputs
+.save-name {
+  padding: 1rem;
+  width: 80%;
+  margin: 1rem;
+  font-family: "Mulish", "Lato", sans-serif;
+  outline: none;
+  border: 1px solid cornflowerblue;
+}
+
+// library js stuff
+.library-popup {
+  width: 40%;
+  height: 50vh;
+  padding: 1rem;
+}
+.palettes {
+  height: 80%;
+  width: 100%;
+  // overflow: hidden;
+  overflow-y: scroll;
+}
+.custom-palette {
+  @include flex(space-around, center, row);
+  padding: 0.5rem;
+
+  h4 {
+    flex: 1;
+  }
+}
+
+.small-preview {
+  @include flex(center, center, row);
+  flex: 1;
+  div {
+    height: 4rem;
+    width: 4rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  // global
+  html {
+    font-size: 53%;
+    font-weight: normal;
+  }
+  // popups
+  .library-popup,
+  .save-popup,
+  .copy-popup {
+    width: 70%;
+  }
+  .custom-palette {
+    text-align: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  // colors
+  .colors {
+    flex-direction: column;
+  }
+  // color
+  .color {
+    @include flex(space-evenly, center, row);
+  }
+
+  //
+  .adjust {
+    display: none;
+  }
+  // panel
+
+  .library-popup,
+  .copy-popup,
+  .save-popup {
+    width: 90%;
+  }
+}
