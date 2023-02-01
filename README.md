@@ -4,4 +4,4 @@ Color picker
 -beautiful design
 -loading cool animations
 i put it on netlify
-https://clinquant-cactus-adc51c.netlify.app/
+https://colorpicker-diyorend.netlify.app/
